@@ -9,10 +9,21 @@ import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.JTextField;
 import java.awt.Font;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+
+import TestingTool.Analyzer;
 
 public class App {
+	/**
+	 * TOTI: Auto generated code:
+	 */
 
 	private JFrame frmToolingtest;
 	private JTextField txtHalsteadOperators;
@@ -54,10 +65,6 @@ public class App {
 		lblNewLabel.setBounds(20, 11, 135, 14);
 		frmToolingtest.getContentPane().add(lblNewLabel);
 		
-		JTextArea txtSourceCode = new JTextArea();
-		txtSourceCode.setBounds(20, 36, 343, 382);
-		frmToolingtest.getContentPane().add(txtSourceCode);
-		
 		JPanel panel = new JPanel();
 		panel.setBounds(378, 11, 327, 407);
 		frmToolingtest.getContentPane().add(panel);
@@ -89,13 +96,13 @@ public class App {
 		txtHalsteadOperators.setText("+, -, /, *, int, double, float, ;, :, public, static, void, &&, ||, <=, >=, <, >");
 		txtHalsteadOperators.setColumns(10);
 		
-		JLabel lblLinesTotal = new JLabel("N/A");
+		final JLabel lblLinesTotal = new JLabel("N/A");
 		
-		JLabel lblCodeLines = new JLabel("N/A");
+		final JLabel lblCodeLines = new JLabel("N/A");
 		
-		JLabel lblCommentedLines = new JLabel("N/A");
+		final JLabel lblCommentedLines = new JLabel("N/A");
 		
-		JLabel lblCommentedPercentage = new JLabel("N/A");
+		final JLabel lblCommentedPercentage = new JLabel("N/A");
 		
 		JLabel lblCycleComplexity = new JLabel("N/A");
 		
@@ -153,15 +160,15 @@ public class App {
 							.addContainerGap()
 							.addComponent(lblNewLabel_2_5_1_1)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtHalsteadOperators, GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
+							.addComponent(txtHalsteadOperators, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addContainerGap()
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(lblNewLabel_2_5_1, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 									.addComponent(lblHalsteadVolume, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE))
-								.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(lblNewLabel_2_5)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(lblHalsteadLongitude, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)))))
@@ -196,7 +203,7 @@ public class App {
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_2_5)
 						.addComponent(lblHalsteadLongitude))
-					.addPreferredGap(ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_2_5_1)
 						.addComponent(lblHalsteadVolume))
@@ -215,5 +222,65 @@ public class App {
 					.addGap(75))
 		);
 		panel.setLayout(gl_panel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 36, 358, 382);
+		frmToolingtest.getContentPane().add(scrollPane);
+		
+		final JTextArea txtSourceCode = new JTextArea();
+		scrollPane.setViewportView(txtSourceCode);
+		
+		/*
+		 * TOTI: Actual code here
+		 */
+		txtSourceCode.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				final String sourceCode = txtSourceCode.getText();
+				final int totalLines = Analyzer.getTotalLines(sourceCode);
+				final int totalCodeLines = Analyzer.getTotalCodeLines(sourceCode);
+				final int totalCommentLines = Analyzer.getTotalCommentLines(sourceCode);
+				final float commentPercentage = Math.round((float) totalCommentLines / totalLines * 100);
+				
+				lblLinesTotal.setText("" + totalLines);
+				lblCodeLines.setText("" + totalCodeLines);
+				lblCommentedLines.setText("" + totalCommentLines);
+				if (totalLines > 0) {
+					lblCommentedPercentage.setText(commentPercentage + "%");
+				}
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				final String sourceCode = txtSourceCode.getText();
+				final int totalLines = Analyzer.getTotalLines(sourceCode);
+				final int totalCodeLines = Analyzer.getTotalCodeLines(sourceCode);
+				final int totalCommentLines = Analyzer.getTotalCommentLines(sourceCode);
+				final float commentPercentage = Math.round((float) totalCommentLines / totalLines * 100);
+				
+				lblLinesTotal.setText("" + totalLines);
+				lblCodeLines.setText("" + totalCodeLines);
+				lblCommentedLines.setText("" + totalCommentLines);
+				if (totalLines > 0) {
+					lblCommentedPercentage.setText(commentPercentage + "%");
+				}
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				final String sourceCode = txtSourceCode.getText();
+				final int totalLines = Analyzer.getTotalLines(sourceCode);
+				final int totalCodeLines = Analyzer.getTotalCodeLines(sourceCode);
+				final int totalCommentLines = Analyzer.getTotalCommentLines(sourceCode);
+				final float commentPercentage = Math.round((float) totalCommentLines / totalLines * 100);
+				
+				lblLinesTotal.setText("" + totalLines);
+				lblCodeLines.setText("" + totalCodeLines);
+				lblCommentedLines.setText("" + totalCommentLines);
+				if (totalLines > 0) {
+					lblCommentedPercentage.setText(commentPercentage + "%");
+				}
+			}
+		});
 	}
 }
