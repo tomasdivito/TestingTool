@@ -105,11 +105,11 @@ public class App {
 		
 		final JLabel lblCommentedPercentage = new JLabel("N/A");
 		
-		JLabel lblCycleComplexity = new JLabel("N/A");
+		final JLabel lblCycleComplexity = new JLabel("N/A");
 		
-		JLabel lblHalsteadLongitude = new JLabel("N/A");
+		final JLabel lblHalsteadLongitude = new JLabel("N/A");
 		
-		JLabel lblHalsteadVolume = new JLabel("N/A");
+		final JLabel lblHalsteadVolume = new JLabel("N/A");
 		
 		JLabel lblFanIn = new JLabel("N/A");
 		
@@ -242,13 +242,16 @@ public class App {
 				final int totalCodeLines = Analyzer.getTotalCodeLines(sourceCode);
 				final int totalCommentLines = Analyzer.getTotalCommentLines(sourceCode);
 				final float commentPercentage = Math.round((float) totalCommentLines / totalLines * 100);
-				Analyzer.calculateHalstead(sourceCode, Arrays.asList(txtHalsteadOperators.getText().split(",")));
+				final double[] halstead = Analyzer.calculateHalstead(sourceCode, Arrays.asList(txtHalsteadOperators.getText().split(",")));
 				lblLinesTotal.setText("" + totalLines);
 				lblCodeLines.setText("" + totalCodeLines);
 				lblCommentedLines.setText("" + totalCommentLines);
 				if (totalLines > 0) {
 					lblCommentedPercentage.setText(commentPercentage + "%");
 				}
+				lblHalsteadLongitude.setText(String.format("%.0f", halstead[0]));
+				lblHalsteadVolume.setText(String.format("%.2f", halstead[1]));
+				lblCycleComplexity.setText(""+Analyzer.complejidadCiclomatica(sourceCode));
 			}
 
 			@Override
@@ -258,13 +261,16 @@ public class App {
 				final int totalCodeLines = Analyzer.getTotalCodeLines(sourceCode);
 				final int totalCommentLines = Analyzer.getTotalCommentLines(sourceCode);
 				final float commentPercentage = Math.round((float) totalCommentLines / totalLines * 100);
-				Analyzer.calculateHalstead(sourceCode, Arrays.asList(txtHalsteadOperators.getText().split(",")));
+				final double[] halstead =Analyzer.calculateHalstead(sourceCode, Arrays.asList(txtHalsteadOperators.getText().split(",")));
 				lblLinesTotal.setText("" + totalLines);
 				lblCodeLines.setText("" + totalCodeLines);
 				lblCommentedLines.setText("" + totalCommentLines);
 				if (totalLines > 0) {
 					lblCommentedPercentage.setText(commentPercentage + "%");
 				}
+				lblHalsteadLongitude.setText(String.format("%.0f", halstead[0]));
+				lblHalsteadVolume.setText(String.format("%.2f", halstead[1]));
+				lblCycleComplexity.setText(""+Analyzer.complejidadCiclomatica(sourceCode));
 			}
 
 			@Override
@@ -274,13 +280,16 @@ public class App {
 				final int totalCodeLines = Analyzer.getTotalCodeLines(sourceCode);
 				final int totalCommentLines = Analyzer.getTotalCommentLines(sourceCode);
 				final float commentPercentage = Math.round((float) totalCommentLines / totalLines * 100);
-				Analyzer.calculateHalstead(sourceCode, Arrays.asList(txtHalsteadOperators.getText().split(",")));
+				final double[] halstead = Analyzer.calculateHalstead(sourceCode, Arrays.asList(txtHalsteadOperators.getText().split(",")));
 				lblLinesTotal.setText("" + totalLines);
 				lblCodeLines.setText("" + totalCodeLines);
 				lblCommentedLines.setText("" + totalCommentLines);
 				if (totalLines > 0) {
 					lblCommentedPercentage.setText(commentPercentage + "%");
 				}
+				lblHalsteadLongitude.setText(String.format("%.0f", halstead[0]));
+				lblHalsteadVolume.setText(String.format("%.2f", halstead[1]));
+				lblCycleComplexity.setText(""+Analyzer.complejidadCiclomatica(sourceCode));
 			}
 		});
 	}
