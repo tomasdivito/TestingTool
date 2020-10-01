@@ -16,6 +16,7 @@ import java.awt.Font;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import java.beans.PropertyChangeListener;
+import java.util.Arrays;
 import java.beans.PropertyChangeEvent;
 
 import TestingTool.Analyzer;
@@ -241,7 +242,7 @@ public class App {
 				final int totalCodeLines = Analyzer.getTotalCodeLines(sourceCode);
 				final int totalCommentLines = Analyzer.getTotalCommentLines(sourceCode);
 				final float commentPercentage = Math.round((float) totalCommentLines / totalLines * 100);
-				
+				Analyzer.calculateHalstead(sourceCode, Arrays.asList(txtHalsteadOperators.getText().split(",")));
 				lblLinesTotal.setText("" + totalLines);
 				lblCodeLines.setText("" + totalCodeLines);
 				lblCommentedLines.setText("" + totalCommentLines);
@@ -257,7 +258,7 @@ public class App {
 				final int totalCodeLines = Analyzer.getTotalCodeLines(sourceCode);
 				final int totalCommentLines = Analyzer.getTotalCommentLines(sourceCode);
 				final float commentPercentage = Math.round((float) totalCommentLines / totalLines * 100);
-				
+				Analyzer.calculateHalstead(sourceCode, Arrays.asList(txtHalsteadOperators.getText().split(",")));
 				lblLinesTotal.setText("" + totalLines);
 				lblCodeLines.setText("" + totalCodeLines);
 				lblCommentedLines.setText("" + totalCommentLines);
@@ -273,7 +274,7 @@ public class App {
 				final int totalCodeLines = Analyzer.getTotalCodeLines(sourceCode);
 				final int totalCommentLines = Analyzer.getTotalCommentLines(sourceCode);
 				final float commentPercentage = Math.round((float) totalCommentLines / totalLines * 100);
-				
+				Analyzer.calculateHalstead(sourceCode, Arrays.asList(txtHalsteadOperators.getText().split(",")));
 				lblLinesTotal.setText("" + totalLines);
 				lblCodeLines.setText("" + totalCodeLines);
 				lblCommentedLines.setText("" + totalCommentLines);
